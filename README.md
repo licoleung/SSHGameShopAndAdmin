@@ -36,3 +36,5 @@ Struts2+Spring+Hibernate+jQuery+Bootstrap<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;管理员可以对后台的订单进行查看操作。<br/>
 2.2.5 查看评论功能<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;管理员可以对所有用户的评论进行查看操作。<br/>
+<hr>
+
