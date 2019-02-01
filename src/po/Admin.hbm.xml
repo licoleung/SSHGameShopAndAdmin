@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2018??12??28?? ????9:56:53 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="po.Admin" table="ADMIN">
+        <id name="aid" type="java.lang.Integer">
+            <column name="AID" />
+            <generator class="native" />
+        </id>
+        <property name="aname" type="java.lang.String">
+            <column name="ANAME" />
+        </property>
+        <property name="apassword" type="java.lang.String">
+            <column name="APASSWORD" />
+        </property>
+        <property name="phone" type="java.lang.String">
+            <column name="PHONE" />
+        </property>
+        <property name="email" type="java.lang.String">
+            <column name="EMAIL" />
+        </property>
+    </class>
+</hibernate-mapping>

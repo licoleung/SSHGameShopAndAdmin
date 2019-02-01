@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2018??12??29?? ????7:43:12 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="po.Game" table="GAME" lazy="false">
+        <id name="gid" type="java.lang.Integer">
+            <column name="GID" />
+            <generator class="native" />
+        </id>
+        <property name="gname" type="java.lang.String">
+            <column name="GNAME" />
+        </property>
+        <property name="picture" type="java.lang.String">
+            <column name="PICTURE" />
+        </property>
+        <property name="type" type="java.lang.String">
+            <column name="TYPE" />
+        </property>
+        <property name="download" type="java.lang.String">
+            <column name="DOWNLOAD" />
+        </property>
+        <property name="gdate" type="java.lang.String">
+            <column name="GDATE" />
+        </property>
+        <property name="describes" type="java.lang.String">
+            <column name="DESCRIBES" />
+        </property>
+        <property name="price" type="double">
+            <column name="PRICE" />
+        </property>
+        <set name="user" table="USER_GAME" cascade="none" lazy="false">
+            <key>
+                <column name="GID" />
+            </key>
+            <many-to-many class="po.User" column="UID"/>
+        </set>
+        <set name="comments" table="COMMENTS" lazy="false">
+            <key>
+                <column name="GID" />
+            </key>
+            <one-to-many class="po.Comments" />
+        </set>
+        <set name="orders" table="ORDERS" lazy="false">
+            <key>
+                <column name="GID" />
+            </key>
+            <one-to-many class="po.Orders" />
+        </set>
+    </class>
+</hibernate-mapping>

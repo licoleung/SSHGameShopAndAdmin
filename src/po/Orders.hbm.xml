@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2018??12??28?? ????9:56:53 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="po.Orders" table="ORDERS" lazy="false">
+        <id name="oid" type="java.lang.Integer">
+            <column name="OID" />
+            <generator class="native" />
+        </id>
+        <property name="status" type="java.lang.String">
+            <column name="STATUS" />
+        </property>
+        <property name="odate" type="java.lang.String">
+            <column name="ODATE" />
+        </property>
+        <many-to-one name="game" class="po.Game" lazy="false">
+            <column name="GID" />
+        </many-to-one>
+        <many-to-one name="user" class="po.User" lazy="false">
+            <column name="UID" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

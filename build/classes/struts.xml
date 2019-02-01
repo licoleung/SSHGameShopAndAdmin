@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+	"http://struts.apache.org/dtds/struts-2.5.dtd">
+<struts>
+	<constant name="struts.enable.DynamicMethodInvocation"
+		value="false" />
+
+	<!-- 文件大小限制 -->
+	<constant name="struts.multipart.maxSize" value="20971520" />
+	<!-- no cache -->
+	<constant name="struts.serve.static.browserCache"
+		value="false" />
+	<!-- debug开启 -->
+	<constant name="struts.devMode" value="true"></constant>
+
+	<package name="default" namespace="/" extends="struts-default">
+
+		<interceptors>
+			<interceptor name="privilegeInterceptor"
+				class="util.PrivilegeInterceptor" />
+		</interceptors>
+		
+		<global-results>
+			<result name="adminLogin">/admin/adminLogin.jsp</result>
+		</global-results>
+		
+		<!-- UserAction -->
+		<action name="user_add" class="userAction" method="save">
+			<interceptor-ref name="privilegeInterceptor" />
+			<interceptor-ref name="defaultStack" />
+			<result>/admin/userFormSuccess.jsp</result>
+		</action>
+		<action name="user_findAll" class="userAction" method="findAll">
+			<interceptor-ref name="privilegeInterceptor" />
+			<interceptor-ref name="defaultStack" />
+			<result>/admin/userList.jsp</result>
+		</action>
+		<action name="user_delete" class="userAction" method="delete">
+			<interceptor-ref name="privilegeInterceptor" />
+			<interceptor-ref name="defaultStack" />
+			<result>/admin/userListSuccess.jsp</result>
+		</action>
+		<action name="user_update_*" class="userAction"
+			method="update_{1}">
+			<interceptor-ref name="privilegeInterceptor" />
+			<interceptor-ref name="defaultStack" />
+			<result>/admin/userEditor.jsp</result>
+			<result name="submit">/admin/userEditorSuccess.jsp</result>
+			<allowed-methods>update_find,update_submit</allowed-methods>
+		</action>
+		<action name="user_findByKey" class="userAction"
+			method="findByKey">
+			<interceptor-ref name="privilegeInterceptor" />
+			<interceptor-ref name="defaultStack" />
+			<result>/admin/userList.jsp</result>
+		</action>
+		<action name="user_download" class="userAction"
+			method="download">
+			<interceptor-ref name="privilegeInterceptor" />
+			<interceptor-ref name="defaultStack" />
+			<result>/admin/userDownload.jsp</result>
+		</action>
+		<action name="user_login" class="userAction" method="Login">
+			<result type="redirectAction">game_findAllToDashboard</result>
+			<result name="error">/show/user/userLogin.jsp</result>
+		</action>
+		<action name="user_logout" class="userAction" method="Logout">
+			<result type="redirect">/show/user/userLogin.jsp</result>
+		</action>
+		<action name="user_save" class="userAction" method="saveInShow">
+			<result type="redirect">/show/dashboard.jsp</result>
+		</action>
+		<action name="user_updateLogin" class="userAction"
+			method="updateLogin">
+			<result>/show/successTips.jsp</result>
+		</action>
+
+		<!-- GameAction -->
+		<action name="game_add" class="gameAction" method="save">
+			<!-- <interceptor-ref name="defaultStack"> -->
+			<!-- <param name="fileUpload.maximumSize">500000000</param> -->
+			<!-- <param name="fileUpload.allowedTypes">image/x-png,image/png,image/gif,image/jpeg,image/jpg,image/pjpeg,application/vnd.ms-excel,text/plain,text/xml,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/x-chrome-extension,application/octet-stream,application/zip,application/x-zip-compressed</param> -->
+			<!-- <param name="fileUpload.allowedExtensions">.zip,.jpg,.jpeg,.png,.gif,.txt,.xls,.vm,.csv,.xml,.xlsx,.crx,.xpi,.sext,.mxaddon,.exe,.safariextz</param> -->
+			<!-- </interceptor-ref> -->
+			<interceptor-ref name="privilegeInterceptor" />
+			<interceptor-ref name="defaultStack" />
+			<result>/admin/gameFormSuccess.jsp</result>
+		</action>
+		<action name="game_findAll" class="gameAction" method="findAll">
+			<interceptor-ref name="privilegeInterceptor" />
+			<interceptor-ref name="defaultStack" />
+			<result>/admin/gameList.jsp</result>
+		</action>
+		<action name="game_findAllToDashboard" class="gameAction"
+			method="findAllToDashboard">
+			<result type="redirect">/show/dashboard.jsp</result>
+		</action>
+		<action name="game_findByKey" class="gameAction"
+			method="findByKey">
+			<interceptor-ref name="privilegeInterceptor" />
+			<interceptor-ref name="defaultStack" />
+			<result>/admin/gameList.jsp</result>
+		</action>
+		<action name="game_delete" class="gameAction" method="delete">
+			<interceptor-ref name="privilegeInterceptor" />
+			<interceptor-ref name="defaultStack" />
+			<result>/admin/gameListSuccess.jsp</result>
+		</action>
+		<action name="game_update_*" class="gameAction"
+			method="update_{1}">
+			<interceptor-ref name="privilegeInterceptor" />
+			<interceptor-ref name="defaultStack" />
+			<result>/admin/gameEditor.jsp</result>
+			<result name="submit">/admin/gameEditorSuccess.jsp</result>
+			<allowed-methods>update_find,update_submit</allowed-methods>
+		</action>
+		<action name="game_download" class="gameAction"
+			method="downloadFile">
+			<param name="inputPath">/dow</param>
+			<result name="download_success" type="stream">
+				<param name="contentType">application/octet-stream</param>
+				<param name="inputName">inputStream</param>
+				<param name="contentDisposition">attachment;filename="${downloadFileName}"</param>
+				<param name="bufferSize">2048</param>
+			</result>
+		</action>
+		<action name="game_findAllToShow" class="gameAction"
+			method="findAllToShow">
+			<result>/show/game.jsp</result>
+		</action>
+		<action name="game_findToShow" class="gameAction"
+			method="findToShow">
+			<result>/show/game.jsp</result>
+		</action>
+		<action name="game_findById" class="gameAction"
+			method="findById">
+			<result>/show/singleGameShow.jsp</result>
+		</action>
+
+		<!-- OrdersAction -->
+		<action name="orders_findAll" class="ordersAction"
+			method="findAll">
+			<interceptor-ref name="privilegeInterceptor" />
+			<interceptor-ref name="defaultStack" />
+			<result>/admin/checkOrders.jsp</result>
+		</action>
+		<action name="orders_findByKey" class="ordersAction"
+			method="findByKey">
+			<interceptor-ref name="privilegeInterceptor" />
+			<interceptor-ref name="defaultStack" />
+			<result>/admin/checkOrders.jsp</result>
+		</action>
+		<action name="orders_download" class="ordersAction"
+			method="download">
+			<interceptor-ref name="privilegeInterceptor" />
+			<interceptor-ref name="defaultStack" />
+			<result>/admin/OrdersDownload.jsp</result>
+		</action>
+		<action name="orders_buy" class="ordersAction" method="buy">
+			<result>/show/payPage.jsp</result>
+		</action>
+
+		<!-- CommentsAction -->
+		<action name="comments_findAll" class="commentsAction"
+			method="findAll">
+			<interceptor-ref name="privilegeInterceptor" />
+			<interceptor-ref name="defaultStack" />
+			<result>/admin/checkComments.jsp</result>
+		</action>
+		<action name="comments_findByKey" class="commentsAction"
+			method="findByKey">
+			<interceptor-ref name="privilegeInterceptor" />
+			<interceptor-ref name="defaultStack" />
+			<result>/admin/checkComments.jsp</result>
+		</action>
+		<action name="comments_save" class="commentsAction"
+			method="add">
+			<result type="chain">user_updateLogin</result>
+		</action>
+		<action name="comments_delete" class="commentsAction"
+			method="delete">
+			<result type="chain">user_updateLogin</result>
+		</action>
+
+		<!-- AdminAction -->
+		<action name="admin_login" class="adminAction" method="Login">
+			<result>/admin/dashboard.jsp</result>
+			<result name="error">/admin/adminLoginFail.jsp</result>
+		</action>
+		<action name="admin_update_submit" class="adminAction"
+			method="update_submit">
+			<interceptor-ref name="privilegeInterceptor" />
+			<interceptor-ref name="defaultStack" />
+			<result name="submit">/admin/adminEditorSuccess.jsp</result>
+		</action>
+		<action name="admin_logout" class="adminAction" method="Logout">
+			<result type="redirect">/admin/adminLogin.jsp</result>
+		</action>
+
+		<!-- PayReturnAction -->
+		<action name="pay_success" class="payReturnAction">
+			<result type="chain">user_updateLogin</result>
+		</action>
+	</package>
+</struts>
